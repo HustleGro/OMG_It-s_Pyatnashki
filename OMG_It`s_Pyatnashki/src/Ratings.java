@@ -34,18 +34,18 @@ public class Ratings /*extends JFrame*/ {
     contentPane = new JFrame();
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
     contentPane.setTitle("Ratings");
-    contentPane.setBounds(100, 100, 500, 500); //(х,у,ширина, высота)
+    contentPane.setBounds(100, 100, 500, 500); //(Гµ,Гі,ГёГЁГ°ГЁГ­Г , ГўГ»Г±Г®ГІГ )
     contentPane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     contentPane.getContentPane().setLayout(null);
     
-    JButton btnNewButton = new JButton("Вернуться в главное меню");
+    JButton btnNewButton = new JButton("РІРµСЂРЅСѓС‚СЊСЃСЏ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ");
     btnNewButton.setBounds(85, 415, 300, 54);
     btnNewButton.setBackground(SystemColor.activeCaption);
     btnNewButton.setForeground(Color.DARK_GRAY);
-    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));//шрифт
+    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));//ГёГ°ГЁГґГІ
     contentPane.getContentPane().add(btnNewButton);
     
-    JLabel lblNewLabel = new JLabel("Рейтинг");
+    JLabel lblNewLabel = new JLabel("ГђГҐГ©ГІГЁГ­ГЈ");
     lblNewLabel.setBackground(SystemColor.menu);
     lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
     lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
