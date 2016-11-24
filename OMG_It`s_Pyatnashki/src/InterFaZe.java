@@ -9,10 +9,12 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class InterFaZe {
+public class InterFaZe extends JFrame{
 
-	private JFrame frmPyatnashki;
+	/*private*/ JFrame frmPyatnashki;
 
 	/**
 	 * Launch the application.
@@ -22,7 +24,7 @@ public class InterFaZe {
 			public void run() {
 				try {
 					InterFaZe window = new InterFaZe();
-					window.frmPyatnashki.setVisible(true);
+					window.frmPyatnashki.setVisible(true);					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -34,7 +36,7 @@ public class InterFaZe {
 	 * Create the application.
 	 */
 	public InterFaZe() {
-		initialize();
+		 initialize();
 	}
 
 	/**
@@ -49,6 +51,12 @@ public class InterFaZe {
 		frmPyatnashki.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("\u041D\u0430\u0447\u0430\u0442\u044C \u0438\u0433\u0440\u0443");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmPyatnashki.setVisible(false);
+				
+			}
+		});
 		btnNewButton.setBounds(10, 69, 278, 54);
 		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.setForeground(Color.DARK_GRAY);
@@ -56,6 +64,11 @@ public class InterFaZe {
 		frmPyatnashki.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("\u0412\u044B\u0445\u043E\u0434 \u0438\u0437 \u0438\u0433\u0440\u044B");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmPyatnashki.dispose();
+			}
+		});
 		btnNewButton_1.setBounds(10, 199, 278, 54);
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
 		btnNewButton_1.setForeground(Color.DARK_GRAY);
@@ -63,6 +76,15 @@ public class InterFaZe {
 		frmPyatnashki.getContentPane().add(btnNewButton_1);
 		
 		JButton button = new JButton("\u0420\u0435\u0439\u0442\u0438\u043D\u0433\u0438");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmPyatnashki.setVisible(false);
+				Ratings rat = new Ratings();
+				rat.contentPane.setVisible(true);
+				
+				
+			}
+		});
 		button.setBounds(10, 134, 278, 54);
 		button.setBackground(SystemColor.activeCaption);
 		button.setForeground(Color.DARK_GRAY);
