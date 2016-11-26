@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 public class Win /*extends JFrame*/ {
   
-  private JFrame WinWin;
+  /*private*/ JFrame WinWin;
   
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
@@ -35,53 +35,53 @@ public class Win /*extends JFrame*/ {
     WinWin = new JFrame();
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
     WinWin.setTitle("WIN");
-    WinWin.setBounds(100, 100,520, 425); //(х,у,ширина, высота)
+    WinWin.setBounds(100, 100,520, 425); //(С…,Сѓ,С€РёСЂРёРЅР°, РІС‹СЃРѕС‚Р°)
     WinWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     WinWin.getContentPane().setLayout(null);
     
-    JButton btnNewButton = new JButton("Вернуться в главное меню");
+    JButton btnNewButton = new JButton("Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ");
     btnNewButton.setBounds(25, 285, 220,40);
     btnNewButton.setBackground(SystemColor.activeCaption);
     btnNewButton.setForeground(Color.DARK_GRAY);
-    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));//шрифт
+    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));//С€СЂРёС„С‚
     btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
        WinWin.getContentPane().add(btnNewButton);
     /*   btnNewButton.setLayout(new BorderLayout());
-     JLabel label1 = new JLabel("Ваше");
-     JLabel label2 = new JLabel("Имя");
+     JLabel label1 = new JLabel("Р’Р°С€Рµ");
+     JLabel label2 = new JLabel("РРјСЏ");
      
      btnNewButton.add(BorderLayout.NORTH,label1);
      btnNewButton.add(BorderLayout.SOUTH,label2);     */
  
-          JButton btnNewButton_1 = new JButton("Сохранить результат");
+          JButton btnNewButton_1 = new JButton("РЎРѕС…СЂР°РЅРёС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚");
     btnNewButton_1.setBounds(260, 285, 220,40);
     btnNewButton_1.setBackground(SystemColor.activeCaption);
     btnNewButton_1.setForeground(Color.DARK_GRAY);
-    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));//шрифт
+    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));//С€СЂРёС„С‚
     btnNewButton_1.setHorizontalAlignment(SwingConstants.CENTER);
        WinWin.getContentPane().add(btnNewButton_1);
     
-    JLabel lblNewLabel = new JLabel("ПОБЕДА!");
+    JLabel lblNewLabel = new JLabel("РџРћР‘Р•Р”Рђ!");
     lblNewLabel.setBackground(SystemColor.menu);
     lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
     lblNewLabel.setBounds(200, 20, 132, 47);
     WinWin.getContentPane().add(lblNewLabel); 
     
-    JLabel lblNewLabel_1 = new JLabel("Ваше время:!");
+    JLabel lblNewLabel_1 = new JLabel("Р’Р°С€Рµ РІСЂРµРјСЏ:!");
     lblNewLabel_1.setBackground(SystemColor.menu);
     lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
     lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
     lblNewLabel_1.setBounds(180, 60, 145, 47);
     WinWin.getContentPane().add(lblNewLabel_1); 
 
-   JTextField textField = new JTextField("Введите NikName", 20);
-textField.setCaretColor(Color.RED);//курсор
-textField.setHorizontalAlignment(JTextField.CENTER);
-textField.setBackground(SystemColor.BLUE);
-textField.setForeground(Color.BLACK);
- textField.setFont(new Font("Tahoma", Font.PLAIN, 15));//шрифт
-textField.setBounds(180, 130, 150, 47);
-WinWin.getContentPane().add(textField, BorderLayout.NORTH);
-  }
-}
+	   JTextField textField = new JTextField("Р’РІРµРґРёС‚Рµ NikName", 20);
+	textField.setCaretColor(Color.RED);//РєСѓСЂСЃРѕСЂ
+	textField.setHorizontalAlignment(JTextField.CENTER);
+	textField.setBackground(SystemColor.BLUE);
+	textField.setForeground(Color.BLACK);
+	 textField.setFont(new Font("Tahoma", Font.PLAIN, 15));//С€СЂРёС„С‚
+	textField.setBounds(180, 130, 150, 47);
+	WinWin.getContentPane().add(textField, BorderLayout.NORTH);
+	  }
+	}

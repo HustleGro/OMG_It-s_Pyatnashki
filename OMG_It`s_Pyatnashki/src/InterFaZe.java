@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 
 public class InterFaZe extends JFrame{
 
-	/*private*/ JFrame frmPyatnashki;
+	private JFrame frmPyatnashki;
 
 	/**
 	 * Launch the application.
@@ -24,7 +24,8 @@ public class InterFaZe extends JFrame{
 			public void run() {
 				try {
 					InterFaZe window = new InterFaZe();
-					window.frmPyatnashki.setVisible(true);					
+					window.frmPyatnashki.setVisible(true);
+					//new InterFaZe();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,18 +44,20 @@ public class InterFaZe extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmPyatnashki = new JFrame();
+		frmPyatnashki = new JFrame("Menu");
 		frmPyatnashki.getContentPane().setForeground(SystemColor.windowBorder);
 		frmPyatnashki.setTitle("Pyatnashki");
 		frmPyatnashki.setBounds(100, 100, 313, 305);
+		frmPyatnashki.setVisible(true);
+		frmPyatnashki.setResizable(false);
 		frmPyatnashki.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPyatnashki.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("\u041D\u0430\u0447\u0430\u0442\u044C \u0438\u0433\u0440\u0443");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmPyatnashki.setVisible(false);
-				
+				new Game();
+				frmPyatnashki.dispose();
 			}
 		});
 		btnNewButton.setBounds(10, 69, 278, 54);
@@ -78,9 +81,8 @@ public class InterFaZe extends JFrame{
 		JButton button = new JButton("\u0420\u0435\u0439\u0442\u0438\u043D\u0433\u0438");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frmPyatnashki.setVisible(false);
-				Ratings rat = new Ratings();
-				rat.contentPane.setVisible(true);
+				new Ratings();
+				frmPyatnashki.dispose();
 				
 				
 			}

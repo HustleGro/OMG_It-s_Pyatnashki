@@ -11,6 +11,8 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.Event;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 public class Game {
   
   private JFrame FrGame;
@@ -36,51 +38,65 @@ public class Game {
 	  FrGame = new JFrame();
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
 	  FrGame.setTitle("Game");
-	  FrGame.setBounds(100, 100, 800, 500); //(х,у,ширина, высота)
+	  FrGame.setBounds(100, 100, 800, 500); //(пїЅ,пїЅ,пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ)
 	  FrGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  FrGame.setResizable(false);
+	  FrGame.setVisible(true);
 	  FrGame.getContentPane().setLayout(null);
     
-    JButton btnNewButton = new JButton("Начать заново");
-    btnNewButton.setBounds(500, 80, 200, 30);
+    JButton btnNewButton = new JButton("РќР°С‡Р°С‚СЊ Р·Р°РЅРѕРІРѕ");
+    btnNewButton.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		FrGame.dispose();
+    		new Game();
+    	}
+    });
+    btnNewButton.setBounds(520, 141, 264, 55);
     btnNewButton.setBackground(SystemColor.activeCaption);
     btnNewButton.setForeground(Color.DARK_GRAY);
-    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));//шрифт
+    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));//пїЅпїЅпїЅпїЅпїЅ
     FrGame.getContentPane().add(btnNewButton);
     
-    JButton btnNewButton_1 = new JButton("Показать подсказку");
-    btnNewButton_1.setBounds(500, 120, 200, 30);
+    JButton btnNewButton_1 = new JButton("РџРѕРєР°Р·Р°С‚СЊ РїРѕРґСЃРєР°Р·РєСѓ");
+    btnNewButton_1.setBounds(520, 207, 264, 55);
     btnNewButton_1.setBackground(SystemColor.activeCaption);
     btnNewButton_1.setForeground(Color.DARK_GRAY);
-    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));//шрифт
+    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));//пїЅпїЅпїЅпїЅпїЅ
     FrGame.getContentPane().add(btnNewButton_1);
     
-    JButton btnNewButton_2 = new JButton("Пауза");
-    btnNewButton_2.setBounds(500, 160, 200, 30);
+    JButton btnNewButton_2 = new JButton("РџР°СѓР·Р°");
+    btnNewButton_2.setBounds(520, 273, 264, 55);
     btnNewButton_2.setBackground(SystemColor.activeCaption);
     btnNewButton_2.setForeground(Color.DARK_GRAY);
-    btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 18));//шрифт
+    btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 18));//пїЅпїЅпїЅпїЅпїЅ
     FrGame.getContentPane().add(btnNewButton_2);
     
-    JButton btnNewButton_3 = new JButton("Сдаюсь");
-    btnNewButton_3.setBounds(500, 200, 200, 30);
+    JButton btnNewButton_3 = new JButton("РЎРґР°СЋСЃСЊ");
+    btnNewButton_3.setBounds(520, 339, 264, 55);
     btnNewButton_3.setBackground(SystemColor.activeCaption);
     btnNewButton_3.setForeground(Color.DARK_GRAY);
-    btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 18));//шрифт
+    btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 18));//пїЅпїЅпїЅпїЅпїЅ
     FrGame.getContentPane().add(btnNewButton_3);
     
-    JButton btnNewButton_4 = new JButton("В главное меню");
-    btnNewButton_4.setBounds(500, 240, 200, 30);
+    JButton btnNewButton_4 = new JButton("Р’ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ");
+    btnNewButton_4.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		FrGame.dispose();
+    		new InterFaZe();
+    	}
+    });
+    btnNewButton_4.setBounds(520, 405, 264, 55);
     btnNewButton_4.setBackground(SystemColor.activeCaption);
     btnNewButton_4.setForeground(Color.DARK_GRAY);
-    btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 18));//шрифт
+    btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 18));//пїЅпїЅпїЅпїЅпїЅ
     FrGame.getContentPane().add(btnNewButton_4);
    
     
-    JLabel lblNewLabel = new JLabel("Игра началась");
+    JLabel lblNewLabel = new JLabel("РРіСЂР° РЅР°С‡Р°Р»Р°СЃСЊ...");
     lblNewLabel.setBackground(SystemColor.menu);
-    lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+    lblNewLabel.setFont(new Font("Trajan Pro 3", Font.PLAIN, 23));
     lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    lblNewLabel.setBounds(100, 20, 200,30);
+    lblNewLabel.setBounds(126, 11, 254,72);
     FrGame.getContentPane().add(lblNewLabel); 
    
   }

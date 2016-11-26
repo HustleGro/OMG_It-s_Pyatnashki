@@ -36,6 +36,8 @@ public class Ratings extends JFrame {
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
     contentPane.setTitle("Ratings");
     contentPane.setBounds(100, 100, 500, 500); //(х,у,ширина, высота)
+    contentPane.setVisible(true);
+    contentPane.setResizable(false);
     contentPane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     contentPane.getContentPane().setLayout(null);
     
@@ -43,8 +45,7 @@ public class Ratings extends JFrame {
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
     		contentPane.setVisible(false);
-    		InterFaZe intr = new InterFaZe();
-    		intr.frmPyatnashki.setVisible(true);
+    		new InterFaZe();
     	}
     });
     btnNewButton.setBounds(100, 396, 300, 54);
