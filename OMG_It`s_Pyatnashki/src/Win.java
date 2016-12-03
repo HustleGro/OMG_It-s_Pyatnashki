@@ -10,6 +10,8 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 public class Win /*extends JFrame*/ {
   
   /*private*/ JFrame WinWin;
@@ -36,10 +38,17 @@ public class Win /*extends JFrame*/ {
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
     WinWin.setTitle("WIN");
     WinWin.setBounds(100, 100,520, 425); //(х,у,ширина, высота)
+    WinWin.setVisible(true);
+    WinWin.setResizable(false);
     WinWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     WinWin.getContentPane().setLayout(null);
     
     JButton btnNewButton = new JButton("Вернуться в главное меню");
+    btnNewButton.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		
+    	}
+    });
     btnNewButton.setBounds(25, 285, 220,40);
     btnNewButton.setBackground(SystemColor.activeCaption);
     btnNewButton.setForeground(Color.DARK_GRAY);
@@ -78,7 +87,7 @@ public class Win /*extends JFrame*/ {
 	   JTextField textField = new JTextField("Введите NikName", 20);
 	textField.setCaretColor(Color.RED);//курсор
 	textField.setHorizontalAlignment(JTextField.CENTER);
-	textField.setBackground(SystemColor.BLUE);
+	textField.setBackground(SystemColor.activeCaption);
 	textField.setForeground(Color.BLACK);
 	 textField.setFont(new Font("Tahoma", Font.PLAIN, 15));//шрифт
 	textField.setBounds(180, 130, 150, 47);
