@@ -13,14 +13,15 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 public class Win /*extends JFrame*/ {
+	
   
-  /*private*/ JFrame WinWin;
+  private JFrame WinWin;
   
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         try {
-          Win window = new Win();
+          Win window = new Win(0);
           window.WinWin.setVisible(true);
         } catch (Exception e) {
           e.printStackTrace();
@@ -29,15 +30,15 @@ public class Win /*extends JFrame*/ {
     });
   }
   
-  public Win() {  
-    initialize();
+  public Win(double time) {  
+    initialize(time);
   }
   
-  private void initialize() {
+  private void initialize(double time) {
     WinWin = new JFrame();
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
     WinWin.setTitle("WIN");
-    WinWin.setBounds(100, 100,520, 425); //(х,у,ширина, высота)
+    WinWin.setBounds(100, 100,520, 366); //(х,у,ширина, высота)
     WinWin.setVisible(true);
     WinWin.setResizable(false);
     WinWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,14 +75,14 @@ public class Win /*extends JFrame*/ {
     lblNewLabel.setBackground(SystemColor.menu);
     lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    lblNewLabel.setBounds(200, 20, 132, 47);
+    lblNewLabel.setBounds(198, 11, 132, 47);
     WinWin.getContentPane().add(lblNewLabel); 
     
-    JLabel lblNewLabel_1 = new JLabel("Ваше время:!");
+    JLabel lblNewLabel_1 = new JLabel("Ваше время:"+  (time/1000)+" сек!");
     lblNewLabel_1.setBackground(SystemColor.menu);
     lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
     lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-    lblNewLabel_1.setBounds(180, 60, 145, 47);
+    lblNewLabel_1.setBounds(154, 61, 201, 47);
     WinWin.getContentPane().add(lblNewLabel_1); 
 
 	   JTextField textField = new JTextField("Введите NikName", 20);
@@ -90,7 +91,7 @@ public class Win /*extends JFrame*/ {
 	textField.setBackground(SystemColor.activeCaption);
 	textField.setForeground(Color.BLACK);
 	 textField.setFont(new Font("Tahoma", Font.PLAIN, 15));//шрифт
-	textField.setBounds(180, 130, 150, 47);
+	textField.setBounds(180, 130, 163, 47);
 	WinWin.getContentPane().add(textField, BorderLayout.NORTH);
 	  }
 	}

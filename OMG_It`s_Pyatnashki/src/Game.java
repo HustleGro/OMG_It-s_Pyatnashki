@@ -29,7 +29,8 @@ public class Game extends JFrame{
   private int[][] fishki = new int[4][4];
   private JPanel panel = new JPanel(new GridLayout(4, 4, 2, 2));
   private static Random ramdomizer = new Random();
-  
+  private double lastTime;
+  private double firstTime;
   
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
@@ -126,6 +127,9 @@ public class Game extends JFrame{
     FrGame.getContentPane().add(panel);
     panel.setDoubleBuffered(true);
     
+    generate();
+    repaintField(true);
+    
     JLabel lblNewLabel_1 = new TimerLabel(new Timer());
     lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 21));
     lblNewLabel_1.setBounds(476, 28, 122, 55);
@@ -133,10 +137,10 @@ public class Game extends JFrame{
 	timerLabel.setFont(new Font(timerLabel.getFont().getFontName(), timerLabel.getFont().getStyle(), 36)); 
 	lblNewLabel_1.add(timerLabel);
     FrGame.getContentPane().add(lblNewLabel_1);
+    firstTime = System.currentTimeMillis();
+    
 
     
-    generate();
-    repaintField();
    
   }
   
@@ -165,7 +169,7 @@ public class Game extends JFrame{
           }
       }
       while (!canBeSolved(invariants));
-      repaintField();
+      repaintField(true);
   }
 
   private boolean canBeSolved(int[] invariants) {
@@ -186,7 +190,7 @@ public class Game extends JFrame{
   }
   
 
-  public void repaintField() {
+  public void repaintField(boolean setable) {
 	  panel.removeAll();
 
       for (int i = 0; i < 4; i++) {
@@ -200,6 +204,10 @@ public class Game extends JFrame{
                   button.setVisible(false);
               } else{
                   button.addActionListener(new ClickListener());
+                  if (setable == false){
+                	  button.setEnabled(false);
+                	  
+                  }
           }
       }
 
@@ -266,24 +274,37 @@ public class Game extends JFrame{
           }
       }
       
-      if((fishki[0][0] == 1) && (fishki[3][2]) == 15){
+      //if((fishki[0][0] == 1) && (fishki[3][2]) == 15){
     	  
     	  checkWin();
     	  if (checkWin()){
-    		  new Win();
+    		  lastTime = System.currentTimeMillis();
+    		  repaintField(false);
+    		  double time = lastTime-firstTime;
+    		  
+    		  new Win(time);
+    		  
+    	  }else{
+    		  repaintField(true);
     	  }
-      }
+     // }
 
-      repaintField();
+      
     	   
-      }
+     }
   }
 
 class TimerLabel extends JLabel
 {
+	
+	
 	public TimerLabel (Timer timer)
 	{
 		timer.scheduleAtFixedRate(timerTask, 0, 1000);
+	}
+	
+	public void stop(){
+		
 	}
 	
 	private TimerTask timerTask = new TimerTask()
