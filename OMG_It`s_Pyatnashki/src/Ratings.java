@@ -11,27 +11,34 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.JScrollPane;
+import java.util.Scanner;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+
 
 public class Ratings extends JFrame {
-	private static User[] users = new User[13];
+	private static User[] users;
 	private static String fileName = "tabble.txt";
 	
   
   JFrame contentPane;//**************
-  private JTable table;
+  private JTable table_1;
   
   
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {					
-					
+				try {
 					Ratings frame = new Ratings();
 					frame.contentPane.setVisible(true);
 				} catch (Exception e) {
@@ -40,139 +47,184 @@ public class Ratings extends JFrame {
 			}
 		});
 	}
- public Ratings() {  
+ public Ratings() {
+	loadUsersFromFile(); 
+	//addToUsersArray(new User("Adolf",41200,41200,41200));
     initialize();
   }
+ 
+ public Ratings(User user){
+	 loadUsersFromFile();
+	 Add(user);
+ }
 
- public void AddToRating(String name, int time, String date){
-	 //write(fileName, User[] users);
+ public void AddToRating(User user){
+	 int pos= -1;
+	 for (int i=0;i<users.length;i++){
+		 if (users[i].getName()==user.getName()){
+			 users[i].incStat(user.getTime());
+			 saveChangesToFile();
+			 break;
+		 }
+		 if (users[i].getBestGame()>user.getTime()){
+			 pos=i;
+		 }
+	 }
 	 
-	 
+	 if (pos!=-1){
+		 for (int i=users.length-1;i>0;i--){
+			 users[i]=users[i-1];
+		 }
+		 users[pos]=user;
+	 }
  }
  
- /*private static void exists(String fileName) throws FileNotFoundException {
-	    File file = new File(fileName);
-	    if (!file.exists()){
-	        throw new FileNotFoundException(file.getName());
-	    }
-	}*/
- 
-/* public static User[] read(String fileName) throws FileNotFoundException {
-	 File file = new File(fileName);
-	    //Этот спец. объект для построения строки
-	    StringBuilder sb = new StringBuilder();
-	 
-	    exists(fileName);
-	 
-	    try {
-	        //Объект для чтения файла в буфер
-	    	 BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
-	        try {
-	            //В цикле построчно считываем файл
-	            User s;
-	            while ((s = in.readLine()) != null) {  //Считывание типа юзер не работает. проблема.
-	                sb.append(s);
-	                sb.append("\n");
-	            }
-	        } finally {
-	            //Также не забываем закрыть файл
-	            in.close();
-	        }
-	    } catch(IOException e) {
-	        throw new RuntimeException(e);
-	    }
-	 
-	    //Возвращаем полученный текст с файла
-	    return sb;
-	}*/
+ public void Add(User user) {
+	 addToUsersArray(user);
+
+     saveChangesToFile();
+ }
  
  
- /*public static void write(String fileName, User[] users) {
-	    //Определяем файл
-	    File file = new File(fileName);	 
-	    try {
-	        //проверяем, что если файл не существует то создаем его
-	        if(!file.exists()){
-	            file.createNewFile();
-	        }	 
-	        //PrintWriter обеспечит возможности записи в файл
-	        PrintWriter out = new PrintWriter(file.getAbsoluteFile());
-	 
-	        try {
-	            //Записываем текст у файл
-	            out.print(users);
-	        } finally {
-	            //После чего мы должны закрыть файл
-	            //Иначе файл не запишется
-	            out.close();
-	        }
-	    } catch(IOException e) {
-	        throw new RuntimeException(e);
-	    }
-	}*/
+ 
+ private void addToUsersArray(User user){
+	 if (users.length>13){
+		 AddToRating(user);
+	 }else{
+	     User[] newUsersArray = new User[users.length + 1];
+	     for(int i = 0; i <= users.length - 1; i++)
+	     {
+	    	 newUsersArray[i] = users[i];
+	     }
+	     newUsersArray[users.length] = user;
+	
+	     users = newUsersArray;
+	 }
+ }
+ 
+ 
+ private void loadUsersFromFile() {
+     try {
+         FileInputStream fis = new FileInputStream(fileName);
+         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
+
+         String strLine;
+         List<User> userList = new ArrayList<User>();
+         //Read File Line By Line
+         while ((strLine = bufferedReader.readLine()) != null){
+             String[] fields = strLine.split(";");
+
+             userList.add(new User(fields[0], 
+            		 Double.parseDouble(fields[1]), 
+            		 Double.parseDouble(fields[2]), 
+            		 Double.parseDouble(fields[3])));
+         }
+
+         users = new User[userList.size()];
+         users = userList.toArray(users);
+
+         bufferedReader.close();
+     } catch (FileNotFoundException e) {
+         e.printStackTrace();
+     } catch (UnsupportedEncodingException e) {
+         e.printStackTrace();
+     } catch (IOException e) {
+         e.printStackTrace();
+     }
+ }
+ 
+ private void saveChangesToFile(){
+     PrintStream printStream = null;
+     try {
+         printStream = new PrintStream(fileName);
+
+         for(User tourItem : users) {
+             printStream.println(tourItem);
+         }
+     } catch (FileNotFoundException e) {
+         e.printStackTrace();
+     } finally {
+         printStream.flush();
+         printStream.close();
+     }
+ }
   
   private void initialize() {	  
     contentPane = new JFrame();
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
     contentPane.setTitle("Ratings");
-    contentPane.setBounds(100, 100, 563, 356); //(х,у,ширина, высота)
+    contentPane.setBounds(100, 100, 563, 356); //(С…,Сѓ,С€РёСЂРёРЅР°, РІС‹СЃРѕС‚Р°)
     contentPane.setVisible(true);
     contentPane.setResizable(false);
     contentPane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    contentPane.getContentPane().setLayout(null);
     
-    JButton btnNewButton = new JButton("Вернуться в главное меню");
+    JButton btnNewButton = new JButton("Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ");
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
     		contentPane.setVisible(false);
     		new InterFaZe();
     	}
     });
-    btnNewButton.setBounds(122, 262, 300, 54);
     btnNewButton.setBackground(SystemColor.activeCaption);
     btnNewButton.setForeground(Color.DARK_GRAY);
-    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));//шрифт
-    contentPane.getContentPane().add(btnNewButton);
+    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
     
-    JLabel lblNewLabel = new JLabel("Рейтинг");
+    JLabel lblNewLabel = new JLabel("Р РµР№С‚РёРЅРі");
     lblNewLabel.setBackground(SystemColor.menu);
     lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
     lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    lblNewLabel.setBounds(212, 11, 132, 47);
-    contentPane.getContentPane().add(lblNewLabel); 
     
-    table = new JTable();
-    users[0].setUser("Адольф", 75, "28.05.1945");
-    table.setModel(new DefaultTableModel(
+    JScrollPane scrollPane = new JScrollPane();
+    
+    DefaultTableModel model = new DefaultTableModel();
+    JTable table_1= new JTable(model);
+    table_1.setModel(new DefaultTableModel(
     	new Object[][] {
-    		{users[0].getName(), users[0].getBestGame(), users[0].getFullTime(), users[0].getDate()},
-    		{users[1].getName(), users[1].getBestGame(), users[1].getFullTime(), users[1].getDate()},
-    		{users[2].getName(), users[2].getBestGame(), users[2].getFullTime(), users[2].getDate()},
-    		{users[3].getName(), users[3].getBestGame(), users[3].getFullTime(), users[3].getDate()},
-    		{users[4].getName(), users[4].getBestGame(), users[4].getFullTime(), users[4].getDate()},
-    		{users[5].getName(), users[5].getBestGame(), users[5].getFullTime(), users[5].getDate()},
-    		{users[6].getName(), users[6].getBestGame(), users[6].getFullTime(), users[6].getDate()},
-    		{users[7].getName(), users[7].getBestGame(), users[7].getFullTime(), users[7].getDate()},
-    		{users[8].getName(), users[8].getBestGame(), users[8].getFullTime(), users[8].getDate()},
-    		{users[9].getName(), users[9].getBestGame(), users[9].getFullTime(), users[9].getDate()},
-    		{users[10].getName(), users[10].getBestGame(), users[10].getFullTime(), users[10].getDate()},
-    		{users[11].getName(), users[11].getBestGame(), users[11].getFullTime(), users[11].getDate()},
     	},
     	new String[] {
-    		"NikName", "\u041B\u0443\u0447\u0448\u0435\u0435 \u0432\u0440\u0435\u043C\u044F", "\u041E\u0431\u0449\u0435\u0435 \u0432\u0440\u0435\u043C\u044F \u0432 \u0438\u0433\u0440\u0435", "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F \u0438\u0433\u0440\u0430 (\u0434\u0430\u0442\u0430)"
+    		"\u0418\u043C\u044F", "\u041B\u0443\u0447\u0448. \u0432\u0440\u0435\u043C\u044F", "\u043F\u043E\u0441\u043B. \u0432\u0440\u0435\u043C\u044F", "\u043E\u0431\u0449. \u0432\u0440\u0435\u043C\u044F"
     	}
-    ) {
-    	Class[] columnTypes = new Class[] {
-    		String.class, Integer.class, Integer.class, String.class
-    	};
-    	public Class getColumnClass(int columnIndex) {
-    		return columnTypes[columnIndex];
-    	}
-    });
-    table.getColumnModel().getColumn(1).setPreferredWidth(84);
-    table.getColumnModel().getColumn(2).setPreferredWidth(118);
-    table.getColumnModel().getColumn(3).setPreferredWidth(126);
-    table.setBounds(10, 55, 537, 192);
-    contentPane.getContentPane().add(table);
-	}
+    ));
+    //int countColumn=table_1.getModel().getColumnCount();
+    for(int i=0; i<users.length; i++){
+    /*Object [] tab = new Object[countColumn];
+    	tab[0]= users[i].getName();
+    	tab[1]= users[i].getBestGame();
+    	tab[2]= users[i].getTime();
+    	tab[3]= users[i].getFullTime();*/
+    model.insertRow(i,new Object[]{users[i].getName(),
+    		users[i].getBestGame(),
+    		users[i].getTime(),
+    		users[i].getFullTime()}); 	
+    	//((DefaultTableModel)table_1.getModel() 
+    }
+    scrollPane.setViewportView(table_1);
+    GroupLayout groupLayout = new GroupLayout(contentPane.getContentPane());
+    groupLayout.setHorizontalGroup(
+    	groupLayout.createParallelGroup(Alignment.LEADING)
+    		.addGroup(groupLayout.createSequentialGroup()
+    			.addGap(212)
+    			.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
+    		.addGroup(groupLayout.createSequentialGroup()
+    			.addGap(10)
+    			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 537, GroupLayout.PREFERRED_SIZE))
+    		.addGroup(groupLayout.createSequentialGroup()
+    			.addGap(122)
+    			.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE))
+    );
+    groupLayout.setVerticalGroup(
+    	groupLayout.createParallelGroup(Alignment.LEADING)
+    		.addGroup(groupLayout.createSequentialGroup()
+    			.addGap(11)
+    			.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+    			.addGap(1)
+    			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+    			.addGap(11)
+    			.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
+    );
+    contentPane.getContentPane().setLayout(groupLayout);
+    
+    
+    
+  }
 }

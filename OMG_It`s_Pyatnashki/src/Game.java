@@ -31,6 +31,9 @@ public class Game extends JFrame{
   private static Random ramdomizer = new Random();
   private double lastTime;
   private double firstTime;
+  private double AllTime;
+  private static double timeGame;
+  private  javax.swing.Timer time;
   
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
@@ -41,6 +44,7 @@ public class Game extends JFrame{
         } catch (Exception e) {
           e.printStackTrace();
         }
+        
       }
     });
   }
@@ -48,6 +52,9 @@ public class Game extends JFrame{
   public Game() {  
     initialize();
   }
+  
+  
+
   
   private void initialize() {
 	  FrGame = new JFrame();
@@ -75,6 +82,7 @@ public class Game extends JFrame{
     FrGame.getContentPane().add(btnNewButton);
     
     JButton btnNewButton_1 = new JButton("Показать подсказку");
+    btnNewButton_1.setEnabled(false);
     btnNewButton_1.setBounds(407, 207, 264, 55);
     btnNewButton_1.setBackground(SystemColor.activeCaption);
     btnNewButton_1.setForeground(Color.DARK_GRAY);
@@ -86,9 +94,39 @@ public class Game extends JFrame{
     btnNewButton_2.setBackground(SystemColor.activeCaption);
     btnNewButton_2.setForeground(Color.DARK_GRAY);
     btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 18));//�����
+    
+    btnNewButton_2.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		lastTime = System.currentTimeMillis();
+    		AllTime = lastTime-firstTime;
+    		repaintField(false);
+    		time.stop();
+    		btnNewButton_2.setVisible(false);
+    		
+    		JButton btnNewButton_3 = new JButton("Продолжить");
+    		btnNewButton_3.setBounds(407, 273, 264, 55);
+    	    btnNewButton_3.setBackground(SystemColor.activeCaption);
+    	    btnNewButton_3.setForeground(Color.DARK_GRAY);
+    	    btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 18));//�����
+    	    btnNewButton_3.addActionListener(new ActionListener() {
+    	    	public void actionPerformed(ActionEvent e) {
+    	    		repaintField(true);
+    	    		time.start();
+    	    		btnNewButton_2.setVisible(true);
+    	    		firstTime = System.currentTimeMillis();
+    	    	}
+    	    });
+    	    FrGame.getContentPane().add(btnNewButton_3);
+    		
+    	}
+    });
     FrGame.getContentPane().add(btnNewButton_2);
     
+    
+    
+    
     JButton btnNewButton_3 = new JButton("Сдаюсь");
+    btnNewButton_3.setEnabled(false);
     btnNewButton_3.setBounds(407, 339, 264, 55);
     btnNewButton_3.setBackground(SystemColor.activeCaption);
     btnNewButton_3.setForeground(Color.DARK_GRAY);
@@ -98,6 +136,7 @@ public class Game extends JFrame{
     JButton btnNewButton_4 = new JButton("В главное меню");
     btnNewButton_4.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
+    		timeGame=0;
     		FrGame.dispose();
     		new InterFaZe();
     	}
@@ -113,7 +152,7 @@ public class Game extends JFrame{
     lblNewLabel.setBackground(SystemColor.menu);
     lblNewLabel.setFont(new Font("Trajan Pro 3", Font.PLAIN, 23));
     lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    lblNewLabel.setBounds(126, 11, 254,72);
+    lblNewLabel.setBounds(79, 11, 254,55);
     FrGame.getContentPane().add(lblNewLabel); 
     
     //JPanel panel = new JPanel(new GridLayout(4, 4, 2, 2));
@@ -122,6 +161,20 @@ public class Game extends JFrame{
     panel.setBounds(10, 73, 387, 387);
     
     Container container = FrGame.getContentPane();
+    
+    JLabel lblNewLabel_1 = new JLabel(""); 
+    lblNewLabel_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 25));
+    lblNewLabel_1.setBounds(513, 34, 116, 26); 
+    time = new javax.swing.Timer( 500,
+    		new ActionListener(){
+            public void actionPerformed(ActionEvent e) {            	
+            	lblNewLabel_1.setText(Double.toString(timeGame));
+                timeGame+=0.5;               
+            }
+        });
+    FrGame.getContentPane().add(lblNewLabel_1);
+    time.start();
+    
     panel.setDoubleBuffered(true);
     container.add(panel);    
     FrGame.getContentPane().add(panel);
@@ -130,19 +183,16 @@ public class Game extends JFrame{
     generate();
     repaintField(true);
     
-    JLabel lblNewLabel_1 = new TimerLabel(new Timer());
-    lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 21));
-    lblNewLabel_1.setBounds(476, 28, 122, 55);
-	JLabel timerLabel = new TimerLabel(new Timer());
-	timerLabel.setFont(new Font(timerLabel.getFont().getFontName(), timerLabel.getFont().getStyle(), 36)); 
-	lblNewLabel_1.add(timerLabel);
-    FrGame.getContentPane().add(lblNewLabel_1);
+
     firstTime = System.currentTimeMillis();
     
 
     
    
   }
+  
+  
+  
   
   public void generate() {
       int[] invariants = new int[16];
@@ -176,7 +226,7 @@ public class Game extends JFrame{
       int sum = 0;
       for (int i = 0; i < 16; i++) {
           if (invariants[i] == 0) {
-              sum += i / 4;
+              sum += Math.ceil(i / 4);
               continue;
           }
 
@@ -234,7 +284,7 @@ public class Game extends JFrame{
               }
           }
       }
-      System.out.println("processing "+status);
+      //System.out.println("processing "+status);
       return status;
   }
   
@@ -280,54 +330,19 @@ public class Game extends JFrame{
     	  if (checkWin()){
     		  lastTime = System.currentTimeMillis();
     		  repaintField(false);
-    		  double time = lastTime-firstTime;
-    		  
-    		  new Win(time);
+      		AllTime = lastTime-firstTime;
+    		  time.stop();
+    		  new Win(AllTime);
     		  
     	  }else{
     		  repaintField(true);
     	  }
      // }
-
-      
-    	   
-     }
+    	  
   }
+ 
+}	
 
-class TimerLabel extends JLabel
-{
-	
-	
-	public TimerLabel (Timer timer)
-	{
-		timer.scheduleAtFixedRate(timerTask, 0, 1000);
-	}
-	
-	public void stop(){
-		
-	}
-	
-	private TimerTask timerTask = new TimerTask()
-	{
-		private volatile int time = -1;
-		
-		private Runnable refresher = new Runnable()
-		{
-			@Override
-			public void run ()
-			{
-				int t = time;
-				TimerLabel.this.setText(String.format("%02d:%02d", t / 60, t % 60));
-			}
-		};
-		
-		@Override
-		public void run ()
-		{
-			time++;
-			SwingUtilities.invokeLater(refresher);
-		}
-	};
-}
+
 
   
