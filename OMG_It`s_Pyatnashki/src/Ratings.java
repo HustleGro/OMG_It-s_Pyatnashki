@@ -33,6 +33,7 @@ public class Ratings extends JFrame {
   
   JFrame contentPane;//**************
   private JTable table_1;
+  private JTable table;
   
   
 	public static void main(String[] args) {
@@ -49,7 +50,6 @@ public class Ratings extends JFrame {
 	}
  public Ratings() {
 	loadUsersFromFile(); 
-	//addToUsersArray(new User("Adolf",41200,41200,41200));
     initialize();
   }
  
@@ -79,7 +79,27 @@ public class Ratings extends JFrame {
 	 }
  }
  
+ public void sort(){
+	 User tmp;
+	 for ( int i=0;i<users.length;i++){
+		 for( int j=1;j<users.length-i;j++){
+			 if (users[j].getBestGame()<users[j-1].getBestGame()){
+				tmp=users[j];
+				users[j]=users[j-1];
+				users[j-1]=tmp;
+			 }
+		 }
+	 }
+ }
+ 
  public void Add(User user) {
+	 for (int i=0;i<users.length;i++){
+		 if (users[i].getName().equals(user.getName())){
+			 users[i].incStat(user.getTime());
+			 saveChangesToFile();
+			 return;
+			 }
+		 } 
 	 addToUsersArray(user);
 
      saveChangesToFile();
@@ -91,6 +111,8 @@ public class Ratings extends JFrame {
 	 if (users.length>13){
 		 AddToRating(user);
 	 }else{
+		 
+				 
 	     User[] newUsersArray = new User[users.length + 1];
 	     for(int i = 0; i <= users.length - 1; i++)
 	     {
@@ -124,6 +146,7 @@ public class Ratings extends JFrame {
          users = userList.toArray(users);
 
          bufferedReader.close();
+         sort();
      } catch (FileNotFoundException e) {
          e.printStackTrace();
      } catch (UnsupportedEncodingException e) {
@@ -138,8 +161,8 @@ public class Ratings extends JFrame {
      try {
          printStream = new PrintStream(fileName);
 
-         for(User tourItem : users) {
-             printStream.println(tourItem);
+         for(User userItem : users) {
+             printStream.println(userItem);
          }
      } catch (FileNotFoundException e) {
          e.printStackTrace();
@@ -153,12 +176,13 @@ public class Ratings extends JFrame {
     contentPane = new JFrame();
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
     contentPane.setTitle("Ratings");
-    contentPane.setBounds(100, 100, 563, 356); //(С…,Сѓ,С€РёСЂРёРЅР°, РІС‹СЃРѕС‚Р°)
+    contentPane.setBounds(100, 100, 563, 356); //(РЎвЂ¦,РЎС“,РЎв‚¬Р С‘РЎР‚Р С‘Р Р…Р В°, Р Р†РЎвЂ№РЎРѓР С•РЎвЂљР В°)
     contentPane.setVisible(true);
     contentPane.setResizable(false);
     contentPane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
-    JButton btnNewButton = new JButton("Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ");
+    JButton btnNewButton = new JButton("выход в меню");
+    btnNewButton.setBounds(122, 262, 300, 54);
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
     		contentPane.setVisible(false);
@@ -169,60 +193,38 @@ public class Ratings extends JFrame {
     btnNewButton.setForeground(Color.DARK_GRAY);
     btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
     
-    JLabel lblNewLabel = new JLabel("Р РµР№С‚РёРЅРі");
+    JLabel lblNewLabel = new JLabel("Рейтинг");
+    lblNewLabel.setBounds(212, 11, 132, 47);
     lblNewLabel.setBackground(SystemColor.menu);
     lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
     lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
     
-    JScrollPane scrollPane = new JScrollPane();
+
+    contentPane.getContentPane().setLayout(null);
+    contentPane.getContentPane().add(lblNewLabel);
+    contentPane.getContentPane().add(btnNewButton);
     
-    DefaultTableModel model = new DefaultTableModel();
-    JTable table_1= new JTable(model);
-    table_1.setModel(new DefaultTableModel(
-    	new Object[][] {
-    	},
-    	new String[] {
-    		"\u0418\u043C\u044F", "\u041B\u0443\u0447\u0448. \u0432\u0440\u0435\u043C\u044F", "\u043F\u043E\u0441\u043B. \u0432\u0440\u0435\u043C\u044F", "\u043E\u0431\u0449. \u0432\u0440\u0435\u043C\u044F"
-    	}
-    ));
-    //int countColumn=table_1.getModel().getColumnCount();
+    JScrollPane scrollPane = new JScrollPane();
+    scrollPane.setBounds(10, 57, 537, 194);
+    contentPane.getContentPane().add(scrollPane);
+    
+    DefaultTableModel model = new DefaultTableModel(new Object[][] {
+	},
+	new String[] {
+		"\u0418\u043C\u044F", "\u041B\u0443\u0447\u0448\u0435\u0435 \u0432\u0440\u0435\u043C\u044F", "\u0412\u0440\u0435\u043C\u044F \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0439 \u0438\u0433\u0440\u044B", "\u041E\u0431\u0449\u0435\u0435 \u0432\u0440\u0435\u043C\u044F \u0432 \u0438\u0433\u0440\u0435"
+	}
+);
+    table = new JTable();
+    table.setModel(model);
+    	
     for(int i=0; i<users.length; i++){
-    /*Object [] tab = new Object[countColumn];
-    	tab[0]= users[i].getName();
-    	tab[1]= users[i].getBestGame();
-    	tab[2]= users[i].getTime();
-    	tab[3]= users[i].getFullTime();*/
     model.insertRow(i,new Object[]{users[i].getName(),
     		users[i].getBestGame(),
     		users[i].getTime(),
-    		users[i].getFullTime()}); 	
-    	//((DefaultTableModel)table_1.getModel() 
+    		users[i].getFullTime()
+    		}); 
     }
-    scrollPane.setViewportView(table_1);
-    GroupLayout groupLayout = new GroupLayout(contentPane.getContentPane());
-    groupLayout.setHorizontalGroup(
-    	groupLayout.createParallelGroup(Alignment.LEADING)
-    		.addGroup(groupLayout.createSequentialGroup()
-    			.addGap(212)
-    			.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
-    		.addGroup(groupLayout.createSequentialGroup()
-    			.addGap(10)
-    			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 537, GroupLayout.PREFERRED_SIZE))
-    		.addGroup(groupLayout.createSequentialGroup()
-    			.addGap(122)
-    			.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE))
-    );
-    groupLayout.setVerticalGroup(
-    	groupLayout.createParallelGroup(Alignment.LEADING)
-    		.addGroup(groupLayout.createSequentialGroup()
-    			.addGap(11)
-    			.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-    			.addGap(1)
-    			.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
-    			.addGap(11)
-    			.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
-    );
-    contentPane.getContentPane().setLayout(groupLayout);
+    scrollPane.setViewportView(table);
     
     
     

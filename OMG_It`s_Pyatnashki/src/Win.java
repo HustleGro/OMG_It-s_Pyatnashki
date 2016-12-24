@@ -40,12 +40,12 @@ public class Win /*extends JFrame*/ {
     WinWin = new JFrame();
 //  contentPane.getContentPane().setForeground(SystemColor.windowBorder);
     WinWin.setTitle("WIN");
-    WinWin.setBounds(100, 100,520, 366); //(х,у,ширина, высота)
+    WinWin.setBounds(100, 100,520, 366); //(С…,Сѓ,С€РёСЂРёРЅР°, РІС‹СЃРѕС‚Р°)
     WinWin.setVisible(true);
     WinWin.setResizable(false);
     WinWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
-    JButton btnNewButton = new JButton("Вернуться в главное меню");
+    JButton btnNewButton = new JButton("Выход в главное меню");
     btnNewButton.setBounds(25, 285, 220, 40);
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
@@ -57,13 +57,13 @@ public class Win /*extends JFrame*/ {
     WinWin.getContentPane().setLayout(null);
     btnNewButton.setBackground(SystemColor.activeCaption);
     btnNewButton.setForeground(Color.DARK_GRAY);
-    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));//шрифт
+    btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));//С€СЂРёС„С‚
     btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
        WinWin.getContentPane().add(btnNewButton);
     
-    JTextField textField = new JTextField("Неизвестный Герой", 20);
+    JTextField textField = new JTextField("Неизвестный герой", 20);
 	   textField.setBounds(178, 172, 163, 47);
-	textField.setCaretColor(Color.RED);//курсор
+	textField.setCaretColor(Color.RED);//РєСѓСЂСЃРѕСЂ
 	textField.setHorizontalAlignment(JTextField.CENTER);
 	textField.setBackground(SystemColor.activeCaption);
 	textField.setForeground(Color.BLACK);
@@ -71,26 +71,27 @@ public class Win /*extends JFrame*/ {
 	WinWin.getContentPane().add(textField);
 
        
-    JLabel lblNewLabel_5 = new JLabel("Результат сохранён!");
+    JLabel lblNewLabel_5 = new JLabel("Сохранено");
    	lblNewLabel_5.setBounds(324, 260, 132, 14);
    	WinWin.getContentPane().add(lblNewLabel_5);
    	lblNewLabel_5.setVisible(false);
  
-          JButton btnNewButton_1 = new JButton("Сохранить результат");
+          JButton btnNewButton_1 = new JButton("сохранить результат");
           btnNewButton_1.addActionListener(new ActionListener() {
           	public void actionPerformed(ActionEvent arg0) {
-          		new Ratings(new User(textField.getText(), time, time, time));
+          		new Ratings(new User(textField.getText(), time/1000, time/1000, time/1000));
           		lblNewLabel_5.setVisible(true);
+          		btnNewButton_1.setEnabled(false);
           	}
           });
           btnNewButton_1.setBounds(260, 285, 220, 40);
     btnNewButton_1.setBackground(SystemColor.activeCaption);
     btnNewButton_1.setForeground(Color.DARK_GRAY);
-    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));//шрифт
+    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));//С€СЂРёС„С‚
     btnNewButton_1.setHorizontalAlignment(SwingConstants.CENTER);
        WinWin.getContentPane().add(btnNewButton_1);
     
-    JLabel lblNewLabel = new JLabel("ПОБЕДА!");
+    JLabel lblNewLabel = new JLabel("Победа!");
     lblNewLabel.setBounds(198, 11, 132, 47);
     lblNewLabel.setBackground(SystemColor.menu);
     lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -105,15 +106,15 @@ public class Win /*extends JFrame*/ {
     WinWin.getContentPane().add(lblNewLabel_1); 
 
 	
-	JLabel lblNewLabel_2 = new JLabel("Если желаете сохранить свой результат\r\n");
+	JLabel lblNewLabel_2 = new JLabel("Если желаете сохранить свой результат");
 	lblNewLabel_2.setBounds(146, 102, 244, 14);
 	WinWin.getContentPane().add(lblNewLabel_2);
 	
-	JLabel lblNewLabel_3 = new JLabel("среди рекордсменов, введите никнейм\r\n");
+	JLabel lblNewLabel_3 = new JLabel("среди рекордсменов, введите никнейм");
 	lblNewLabel_3.setBounds(154, 119, 236, 14);
 	WinWin.getContentPane().add(lblNewLabel_3);
 	
-	JLabel lblNewLabel_4 = new JLabel(" и сохраните результат");
+	JLabel lblNewLabel_4 = new JLabel("и сохраните результат");
 	lblNewLabel_4.setBounds(198, 136, 143, 14);
 	WinWin.getContentPane().add(lblNewLabel_4);
 	

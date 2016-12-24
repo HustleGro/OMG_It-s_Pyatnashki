@@ -28,7 +28,6 @@ public class Game extends JFrame{
   private JFrame FrGame;
   private int[][] fishki = new int[4][4];
   private JPanel panel = new JPanel(new GridLayout(4, 4, 2, 2));
-  private static Random ramdomizer = new Random();
   private double lastTime;
   private double firstTime;
   private double AllTime;
@@ -71,6 +70,8 @@ public class Game extends JFrame{
     JButton btnNewButton = new JButton("Начать заново");
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
+    		
+    		time.stop();
     		FrGame.dispose();
     		new Game();
     	}
@@ -82,7 +83,7 @@ public class Game extends JFrame{
     FrGame.getContentPane().add(btnNewButton);
     
     JButton btnNewButton_1 = new JButton("Показать подсказку");
-    btnNewButton_1.setEnabled(false);
+    btnNewButton_1.setEnabled(true);
     btnNewButton_1.setBounds(407, 207, 264, 55);
     btnNewButton_1.setBackground(SystemColor.activeCaption);
     btnNewButton_1.setForeground(Color.DARK_GRAY);
@@ -126,7 +127,7 @@ public class Game extends JFrame{
     
     
     JButton btnNewButton_3 = new JButton("Сдаюсь");
-    btnNewButton_3.setEnabled(false);
+    btnNewButton_3.setEnabled(true);
     btnNewButton_3.setBounds(407, 339, 264, 55);
     btnNewButton_3.setBackground(SystemColor.activeCaption);
     btnNewButton_3.setForeground(Color.DARK_GRAY);
@@ -137,6 +138,7 @@ public class Game extends JFrame{
     btnNewButton_4.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
     		timeGame=0;
+    		time.stop();
     		FrGame.dispose();
     		new InterFaZe();
     	}
@@ -185,20 +187,15 @@ public class Game extends JFrame{
     
 
     firstTime = System.currentTimeMillis();
-    
-
-    
-   
+     
   }
   
   
   
   
   public void generate() {
+	  Random ramdomizer = new Random();
       int[] invariants = new int[16];
-      
-      
-
       do {
           for (int i = 0; i < 4; i++) {
               for (int j = 0; j < 4; j++) {
@@ -212,26 +209,24 @@ public class Game extends JFrame{
               do {
                   k = ramdomizer.nextInt(4);
                   l = ramdomizer.nextInt(4);
-              }
-              while (fishki[k][l] != 0);
+              }while (fishki[k][l] != 0);
+              
               fishki[k][l] = i;
               invariants[k * 4 + l] = i;
           }
-      }
-      while (!canBeSolved(invariants));
-      repaintField(true);
+      }while (!canBeSolved(invariants)); 
   }
 
   private boolean canBeSolved(int[] invariants) {
       int sum = 0;
       for (int i = 0; i < 16; i++) {
           if (invariants[i] == 0) {
-              sum += Math.ceil(i / 4);
+              sum = sum+(i / 4);
               continue;
           }
 
           for (int j = i + 1; j < 16; j++) {
-              if (invariants[j] < invariants[i])
+              if ((invariants[j]!=0) && (invariants[i] < invariants[j]))
                   sum ++;
           }
       }
@@ -330,8 +325,15 @@ public class Game extends JFrame{
     	  if (checkWin()){
     		  lastTime = System.currentTimeMillis();
     		  repaintField(false);
-      		AllTime = lastTime-firstTime;
+      		AllTime += lastTime-firstTime;
     		  time.stop();
+    		  time = new javax.swing.Timer( 3500,
+    		    		new ActionListener(){
+    		            public void actionPerformed(ActionEvent e) {            	
+    		                FrGame.dispose();;               
+    		            }
+    		        });
+
     		  new Win(AllTime);
     		  
     	  }else{

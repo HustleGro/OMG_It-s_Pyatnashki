@@ -42,10 +42,12 @@ public class First extends JFrame {
 		JButton btnNewButton = new JButton("New button");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Win(41000);
+				new Win(20000);
 			}
 		});
 		contentPane.add(btnNewButton, BorderLayout.WEST);
 	}
 
 }
+
+

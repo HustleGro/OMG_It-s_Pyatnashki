@@ -1,9 +1,9 @@
 
 public class User {
-	private String name; // Р�РјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
-	private double bestGameTime;  // Р’СЂРµРјСЏ Р»СѓС‡С€РµР№ РёРіСЂС‹
-	private double fullGameTime; // РћР±С‰РµРµ РІСЂРµРјСЏ РІСЃРµС… РёРіСЂ (СЃСѓРјРјР°)
-	private double lastGameTime; // РІСЂРµРјСЏ РїРѕСЃР»РµРґРЅРµР№ РёРіСЂС‹
+	private String name; // Р пїЅР С�РЎРЏ Р С—Р С•Р В»РЎРЉР В·Р С•Р Р†Р В°РЎвЂљР ВµР В»РЎРЏ
+	private double bestGameTime;  // Р вЂ™РЎР‚Р ВµР С�РЎРЏ Р В»РЎС“РЎвЂЎРЎв‚¬Р ВµР в„– Р С‘Р С–РЎР‚РЎвЂ№
+	private double fullGameTime; // Р С›Р В±РЎвЂ°Р ВµР Вµ Р Р†РЎР‚Р ВµР С�РЎРЏ Р Р†РЎРѓР ВµРЎвЂ¦ Р С‘Р С–РЎР‚ (РЎРѓРЎС“Р С�Р С�Р В°)
+	private double lastGameTime; // Р Р†РЎР‚Р ВµР С�РЎРЏ Р С—Р С•РЎРѓР В»Р ВµР Т‘Р Р…Р ВµР в„– Р С‘Р С–РЎР‚РЎвЂ№
 
 	public void setUser(String name1, Integer gameTime, double date){
 		this.name = name1;
@@ -12,7 +12,7 @@ public class User {
 		this.fullGameTime = gameTime;
 	}
 	
-	public User(String name, double bestGameTime, double fullGameTime, double lastGameTime){
+	public User(String name, double bestGameTime, double lastGameTime, double fullGameTime){
 		 this.name = name;
 		 this.bestGameTime = bestGameTime;
 		 this.fullGameTime = fullGameTime;
@@ -44,5 +44,8 @@ public class User {
 		}
 	}
 	
+	public String toString(){
+        return name + ";" + bestGameTime + ";" + lastGameTime + ";"  + fullGameTime + ";";
+	}
 	
 }

@@ -25,7 +25,6 @@ public class InterFaZe extends JFrame{
 				try {
 					InterFaZe window = new InterFaZe();
 					window.frmPyatnashki.setVisible(true);
-					//new InterFaZe();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
