@@ -38,6 +38,7 @@ public class Game extends JFrame{
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         try {
+        	
           Game window = new Game();
           window.FrGame.setVisible(true);
         } catch (Exception e) {
@@ -70,7 +71,7 @@ public class Game extends JFrame{
     JButton btnNewButton = new JButton("Начать заново");
     btnNewButton.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
-    		
+    		timeGame=0;
     		time.stop();
     		FrGame.dispose();
     		new Game();
