@@ -143,7 +143,7 @@ public class Ratings extends JFrame {
          users = userList.toArray(users);
 
          bufferedReader.close();
-         sort();
+         
      } catch (FileNotFoundException e) {
          e.printStackTrace();
      } catch (UnsupportedEncodingException e) {
@@ -155,6 +155,7 @@ public class Ratings extends JFrame {
  
  private void saveChangesToFile(){
      PrintStream printStream = null;
+     sort();
      try {
          printStream = new PrintStream(fileName);
 
@@ -212,6 +213,7 @@ public class Ratings extends JFrame {
 	}
 );
     table = new JTable();
+    table.setRowSelectionAllowed(false);
     table.setModel(model);
     	
     for(int i=0; i<users.length; i++){
