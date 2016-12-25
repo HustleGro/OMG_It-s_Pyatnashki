@@ -7,10 +7,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class First extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -40,12 +42,19 @@ public class First extends JFrame {
 		setContentPane(contentPane);
 		
 		JButton btnNewButton = new JButton("New button");
+		
+		
+		contentPane.add(btnNewButton, BorderLayout.WEST);
+		
+		textField = new JTextField();
+		contentPane.add(textField, BorderLayout.CENTER);
+		textField.setColumns(10);
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Win(20000);
+				new Win(Double.parseDouble(textField.getText()));
 			}
 		});
-		contentPane.add(btnNewButton, BorderLayout.WEST);
 	}
 
 }
