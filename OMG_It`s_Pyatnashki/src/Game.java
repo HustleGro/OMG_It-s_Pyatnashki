@@ -76,22 +76,14 @@ public class Game extends JFrame{
     		new Game();
     	}
     });
-    btnNewButton.setBounds(407, 141, 264, 55);
+    btnNewButton.setBounds(407, 137, 264, 82);
     btnNewButton.setBackground(SystemColor.activeCaption);
     btnNewButton.setForeground(Color.DARK_GRAY);
     btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));//�����
     FrGame.getContentPane().add(btnNewButton);
     
-    JButton btnNewButton_1 = new JButton("Показать подсказку");
-    btnNewButton_1.setEnabled(true);
-    btnNewButton_1.setBounds(407, 207, 264, 55);
-    btnNewButton_1.setBackground(SystemColor.activeCaption);
-    btnNewButton_1.setForeground(Color.DARK_GRAY);
-    btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));//�����
-    FrGame.getContentPane().add(btnNewButton_1);
-    
     JButton btnNewButton_2 = new JButton("Пауза");
-    btnNewButton_2.setBounds(407, 273, 264, 55);
+    btnNewButton_2.setBounds(407, 258, 264, 82);
     btnNewButton_2.setBackground(SystemColor.activeCaption);
     btnNewButton_2.setForeground(Color.DARK_GRAY);
     btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 18));//�����
@@ -123,17 +115,6 @@ public class Game extends JFrame{
     });
     FrGame.getContentPane().add(btnNewButton_2);
     
-    
-    
-    
-    JButton btnNewButton_3 = new JButton("Сдаюсь");
-    btnNewButton_3.setEnabled(true);
-    btnNewButton_3.setBounds(407, 339, 264, 55);
-    btnNewButton_3.setBackground(SystemColor.activeCaption);
-    btnNewButton_3.setForeground(Color.DARK_GRAY);
-    btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 18));//�����
-    FrGame.getContentPane().add(btnNewButton_3);
-    
     JButton btnNewButton_4 = new JButton("В главное меню");
     btnNewButton_4.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent e) {
@@ -143,7 +124,7 @@ public class Game extends JFrame{
     		new InterFaZe();
     	}
     });
-    btnNewButton_4.setBounds(407, 405, 264, 55);
+    btnNewButton_4.setBounds(407, 378, 264, 82);
     btnNewButton_4.setBackground(SystemColor.activeCaption);
     btnNewButton_4.setForeground(Color.DARK_GRAY);
     btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 18));//�����
@@ -327,13 +308,8 @@ public class Game extends JFrame{
     		  repaintField(false);
       		AllTime += lastTime-firstTime;
     		  time.stop();
-    		  time = new javax.swing.Timer( 3500,
-    		    		new ActionListener(){
-    		            public void actionPerformed(ActionEvent e) {            	
-    		                FrGame.dispose();;               
-    		            }
-    		        });
-
+    		  
+    		  FrGame.dispose();
     		  new Win(AllTime);
     		  
     	  }else{

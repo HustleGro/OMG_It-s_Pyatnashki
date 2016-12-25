@@ -61,18 +61,17 @@ public class Ratings extends JFrame {
  public void AddToRating(User user){
 	 int pos= -1;
 	 for (int i=0;i<users.length;i++){
-		 if (users[i].getName()==user.getName()){
-			 users[i].incStat(user.getTime());
-			 saveChangesToFile();
-			 break;
-		 }
 		 if (users[i].getBestGame()>user.getTime()){
 			 pos=i;
+			 break;
 		 }
 	 }
 	 
-	 if (pos!=-1){
-		 for (int i=users.length-1;i>0;i--){
+	 if (pos!= -1){
+		// if (pos = (users.length - 1)){
+			// users[pos]=user;}
+		 
+		 for (int i=users.length-1;i>pos;i--){
 			 users[i]=users[i-1];
 		 }
 		 users[pos]=user;
@@ -108,11 +107,9 @@ public class Ratings extends JFrame {
  
  
  private void addToUsersArray(User user){
-	 if (users.length>13){
+	 if (users.length>12){
 		 AddToRating(user);
 	 }else{
-		 
-				 
 	     User[] newUsersArray = new User[users.length + 1];
 	     for(int i = 0; i <= users.length - 1; i++)
 	     {

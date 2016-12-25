@@ -5,12 +5,6 @@ public class User {
 	private double fullGameTime; // Р С›Р В±РЎвЂ°Р ВµР Вµ Р Р†РЎР‚Р ВµР С�РЎРЏ Р Р†РЎРѓР ВµРЎвЂ¦ Р С‘Р С–РЎР‚ (РЎРѓРЎС“Р С�Р С�Р В°)
 	private double lastGameTime; // Р Р†РЎР‚Р ВµР С�РЎРЏ Р С—Р С•РЎРѓР В»Р ВµР Т‘Р Р…Р ВµР в„– Р С‘Р С–РЎР‚РЎвЂ№
 
-	public void setUser(String name1, Integer gameTime, double date){
-		this.name = name1;
-		this.bestGameTime = gameTime;
-		this.lastGameTime = date;
-		this.fullGameTime = gameTime;
-	}
 	
 	public User(String name, double bestGameTime, double lastGameTime, double fullGameTime){
 		 this.name = name;
